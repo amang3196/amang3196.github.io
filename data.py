@@ -62,7 +62,7 @@ FUN_FACTS = [
     "I am a gym freak. I love to lift weights and work out. I have been going to the gym consistently for the last 4 years.",
     "Two things that working out has tauhght me are discipline and consistency. This has helped me realise that showing up is what makes the difference.",
     "On the weekend, I take that Manchester United jersey out, put it on and for 2 hours it's just me watching my favorite team play my favourite game (football).",
-    "I am curious by nature. So, if I ask a lot of questions please don't be annoyed.",
+    "I’m naturally curious, and asking questions is how I learn and get things right.",
 ]
 
 JOBS = [
