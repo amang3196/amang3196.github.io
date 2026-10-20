@@ -1,0 +1,54 @@
+{% from "_icons.html" import icon %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ site.NAME }}{% endblock %}</title>
+  <meta name="description" content="{{ site.NAME }} | {{ site.HEADLINE }}. {{ site.DESCRIPTION[:120] }}">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👋</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="{{ url_for('home') }}">{{ site.NAME }}</a>
+      <nav class="nav" aria-label="Main">
+        {% for section_id, label in [("achievements", "Achievements"), ("experience", "Experience"), ("education", "Education"), ("contact", "Contact")] %}
+          <a href="{{ url_for('home') }}#{{ section_id }}">{{ label }}</a>
+        {% endfor %}
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="socials">
+        {% for s in site.SOCIAL_MEDIA %}
+          <a class="icon-link" href="{{ s.url }}" {% if s.url.startswith("http") %}target="_blank" rel="noopener"{% endif %} aria-label="{{ s.name }}">{{ icon(s.icon) }}</a>
+        {% endfor %}
+      </div>
+      <p>&copy; {{ year }} {{ site.NAME }}</p>
+    </div>
+  </footer>
+
+  <script>
+    // Highlight the navbar link for the section currently in the middle of the screen.
+    const navLinks = document.querySelectorAll(".nav a");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        navLinks.forEach((a) => a.classList.toggle("active", a.hash === "#" + entry.target.id));
+      });
+    }, { rootMargin: "-45% 0px -50% 0px" });
+    document.querySelectorAll("main section[id]").forEach((s) => observer.observe(s));
+  </script>
+</body>
+</html>

@@ -1,33 +1,34 @@
-import streamlit as st
-from streamlit_option_menu import option_menu
-import home,workex, projects, contact,test
+from datetime import date
+
+from flask import Flask, render_template
+
+import data
+
+app = Flask(__name__)
 
 
-st.set_page_config(page_title="Aman Garg", page_icon=":wave:", layout="wide")
+@app.context_processor
+def inject_site_data():
+    # Makes everything in data.py available in every template, e.g. {{ site.NAME }}
+    return {"site": data, "year": date.today().year}
 
-# Use local CSS
-def local_css(file_name):
-    with open(file_name) as f:
-        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-local_css("style/style.css")
+# The whole site is one page; the navbar links jump to sections on it.
+@app.route("/")
+def home():
+    return render_template("home.html")
 
-selected = option_menu(
-    menu_title=None,
-    options = ["About Me", "Work Experience", "Projects", "Contact"],
-    icons=["house", "book", "folder", "envelope"],
-    default_index = 0,
-    orientation = "horizontal",
-    styles={
-        "nav-link-selected": {"background-color": "#555555"}
-    }
-    
-)
-if selected == "About Me":
-    home.app()
-if selected == "Projects":
-    projects.app()
-if selected == "Work Experience":
-    workex.app()
-if selected == "Contact":
-    contact.app()
+
+# GitHub Pages serves 404.html for any unknown URL.
+@app.route("/404.html")
+def not_found_page():
+    return render_template("404.html")
+
+
+@app.errorhandler(404)
+def not_found(error):
+    return render_template("404.html"), 404
+
+
+if __name__ == "__main__":
+    app.run(debug=True)

@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% from "_icons.html" import icon %}
+
+{% block content %}
+<section class="hero" id="about">
+  <div class="hero-text">
+    <p class="eyebrow">Hi, I am {{ site.NAME }} 👋</p>
+    <h1 class="gradient-text">{{ site.HEADLINE }}</h1>
+    <p class="lead">{{ site.DESCRIPTION }}</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="{{ url_for('static', filename=site.RESUME_FILE) }}" download>
+        {{ icon("download") }} Download Resume
+      </a>
+      {% for s in site.SOCIAL_MEDIA %}
+        <a class="btn btn-ghost" href="{{ s.url }}" {% if s.url.startswith("http") %}target="_blank" rel="noopener"{% endif %}>
+          {{ icon(s.icon) }} {{ s.name }}
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="hero-photo">
+    <img src="{{ url_for('static', filename=site.PROFILE_PIC) }}" alt="Photo of {{ site.NAME }}" width="612" height="612">
+  </div>
+</section>
+
+<section class="section" id="achievements">
+  <h2>Achievements</h2>
+  <div class="achievements">
+    {% for a in site.ACHIEVEMENTS %}
+      <article class="card achievement">
+        <a class="achievement-img" href="{{ url_for('static', filename=a.image) }}" target="_blank" rel="noopener" aria-label="View {{ a.title }} full size">
+          <img src="{{ url_for('static', filename=a.image) }}" alt="{{ a.title }} certificate" loading="lazy">
+        </a>
+        <h3>🏆 {{ a.title }}</h3>
+        <p class="meta">{{ a.issuer }}{% if a.date %} · {{ a.date }}{% endif %}</p>
+        <p class="muted">{{ a.description }}</p>
+      </article>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section" id="experience">
+  <h2>Work Experience</h2>
+  <div class="stack">
+    {% for job in site.JOBS %}
+      <article class="card job">
+        <div class="job-body">
+          <h3 class="card-title">{{ job.title }} <span class="at">| {{ job.company }}</span></h3>
+          <p class="meta">{{ job.dates }}</p>
+          <ul class="checklist">
+            {% for point in job.points %}
+              <li>{{ point }}</li>
+            {% endfor %}
+          </ul>
+          <ul class="tags" aria-label="Tools">
+            {% for tool in job.tools %}
+              <li>{{ tool }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="logo-tile">
+          <img src="{{ url_for('static', filename=job.logo) }}" alt="{{ job.company }} logo" loading="lazy">
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section split" id="education">
+  <img class="split-art" src="{{ url_for('static', filename='education.png') }}" alt="" loading="lazy">
+  <div>
+    <h2>My Education</h2>
+    <ul class="edu-list">
+      {% for e in site.EDUCATION %}
+        <li class="card">
+          <span class="edu-icon" aria-hidden="true">📚</span>
+          <div>
+            <h3>{{ e.degree }}</h3>
+            <p class="muted">{{ e.school }}</p>
+            <p class="meta">{{ e.years }}</p>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+<section class="section" id="outside-work">
+  <h2>Who I am outside of work</h2>
+  <ul class="facts">
+    {% for fact in site.FUN_FACTS %}
+      <li>{{ fact | safe }}</li>
+    {% endfor %}
+  </ul>
+</section>
+
+<section class="section" id="contact">
+  <div class="contact">
+  <h2>Get In Touch With Me!</h2>
+  <p class="muted">Have a question or an opportunity? Drop me a message and I'll get back to you.</p>
+
+  {# Form is delivered by https://formsubmit.co, so it works on a static site. #}
+  <form class="card form" action="https://formsubmit.co/{{ site.CONTACT_EMAIL }}" method="POST">
+    <input type="hidden" name="_captcha" value="false">
+    <label>
+      <span>Name</span>
+      <input type="text" name="name" placeholder="Your name" autocomplete="name" required>
+    </label>
+    <label>
+      <span>Email</span>
+      <input type="email" name="email" placeholder="Your email" autocomplete="email" required>
+    </label>
+    <label>
+      <span>Message</span>
+      <textarea name="message" rows="6" placeholder="Your message here" required></textarea>
+    </label>
+    <button type="submit" class="btn btn-primary">Send</button>
+  </form>
+  </div>
+</section>
+{% endblock %}
