@@ -12,7 +12,7 @@ DESCRIPTION = (
     "engineering and retrieval design to evaluation and user-facing apps."
 )
 
-RESUME_FILE = "Aman_Garg_Resume_3Yr.pdf"   # inside static/
+RESUME_FILE = "Aman_Garg_Resume_Latest.pdf"   # inside static/
 PROFILE_PIC = "profile-pic.png"               # inside static/
 CONTACT_EMAIL = "garg.aman96@gmail.com"
 
@@ -79,7 +79,10 @@ JOBS = [
             "Synthetic Test Case Generation: Local Llama + FAISS RAG pipeline that generates test cases directly from source code.",
             "Smart Search GenAI Enhancement: Added voice interaction, personas and guardrails to an enterprise search experience.",
         ], 
-        "tools": ["GenAI", "LLM", "RAG", "Data Science", "Machine Learning", "Python", "SQL" ,"LangChain", "LangGraph", "Neo4j", "Azure", "Git", "Streamlit"],
+        "tools": ["LLMs", "Generative AI", "RAG", "GraphRAG", "Agentic AI", "Prompt Engineering", "Natural Language Processing (NLP)", "RAGAS", "LangChain", 
+                  "LangGraph", "OpenAI", "LlamaIndex", "FAISS", "ChromaDB", "Azure AI Search", "PG Vector", "Machine Learning", "Deep Learning", "Exploratory Data Analysis", 
+                  "Feature Engineering", "Predictive Modeling", "Python", "SQL", "Neo4j", "Pandas", "Streamlit", "Git", "Flask", "Azure OpenAI", "Azure AI Foundry", 
+                  "Azure ML Studio", "Google Vertex AI"],
     },
     {
         "title": "Intern - Data Science/AI",
