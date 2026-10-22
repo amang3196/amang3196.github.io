@@ -5,7 +5,7 @@ NAME = "Aman Garg"
 HEADLINE = "An AI Engineer & Data Scientist"
 DESCRIPTION = (
     "I have 3 years of experience designing LLM systems end to end, including RAG, "
-    "knowledge-graph retrieval, workflows with LLM tool-calling, and document "
+    "knowledge-graph retrieval, agentic workflows with LLM tool-calling, and document "
     "extraction, on Azure OpenAI, Vertex AI, LangChain, LangGraph and Neo4j. I have "
     "delivered several use cases including but not limited to document extraction, "
     "text-to-Cypher analytics and explainable claims prediction, from feature "
