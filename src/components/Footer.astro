@@ -1,0 +1,23 @@
+---
+import Icon from "./Icon.astro";
+import { NAME, SOCIAL_MEDIA } from "../data/site";
+
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p>© {year} {NAME}</p>
+    <div class="socials">
+      {SOCIAL_MEDIA.map((s) => (
+        <a
+          class="icon-btn"
+          href={s.url}
+          aria-label={s.name}
+          {...(s.url.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+        >
+          <Icon name={s.icon} />
+        </a>
+      ))}
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,19 @@
+---
+import { FUN_FACTS } from "../data/site";
+---
+<section class="section" id="outside-work">
+  <div class="section-head">
+    <span class="kicker">Beyond the code</span>
+    <h2>Who I am outside of work</h2>
+  </div>
+
+  <ul class="bento facts">
+    {FUN_FACTS.map((f) => (
+      <li class="tile fact">
+        <span class="fact-emoji" aria-hidden="true">{f.emoji}</span>
+        <h3>{f.title}</h3>
+        <p set:html={f.text} />
+      </li>
+    ))}
+  </ul>
+</section>
