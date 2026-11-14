@@ -1,0 +1,36 @@
+---
+import { Image } from "astro:assets";
+import Icon from "./Icon.astro";
+import { ACHIEVEMENTS } from "../data/site";
+---
+<section class="section" id="achievements">
+  <div class="section-head">
+    <span class="kicker">Recognition</span>
+    <h2>Achievements</h2>
+  </div>
+
+  <div class="bento achievements">
+    {ACHIEVEMENTS.map((a) => (
+      <article class="tile achievement">
+        <a
+          class="achievement-img"
+          href={a.image.src}
+          target="_blank"
+          rel="noopener"
+          aria-label={`View ${a.title} full size`}
+        >
+          <Image
+            src={a.image}
+            alt={`${a.title} certificate`}
+            widths={[360, 560, 800]}
+            sizes="(max-width: 600px) 100vw, (max-width: 1120px) 50vw, 560px"
+          />
+          <span class="zoom" aria-hidden="true"><Icon name="expand" /></span>
+        </a>
+        <h3>🏆 {a.title}</h3>
+        <p class="meta">{a.issuer}{a.date && ` · ${a.date}`}</p>
+        <p class="muted">{a.description}</p>
+      </article>
+    ))}
+  </div>
+</section>

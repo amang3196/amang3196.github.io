@@ -1,0 +1,73 @@
+---
+import { Image } from "astro:assets";
+import { JOBS, TOOLS_PREVIEW_COUNT } from "../data/site";
+---
+<section class="section" id="experience">
+  <div class="section-head">
+    <span class="kicker">Career</span>
+    <h2>Work Experience</h2>
+  </div>
+
+  <ol class="timeline">
+    {JOBS.map((job) => {
+      const projects = job.points.filter((p) => p.title);
+      const bullets = job.points.filter((p) => !p.title);
+      const extra = job.tools.length - TOOLS_PREVIEW_COUNT;
+      return (
+        <li class="timeline-item">
+          <article class="tile job">
+            <header class="job-head">
+              <div class="logo-chip">
+                <Image src={job.logo} alt={`${job.company} logo`} widths={[160, 320]} sizes="96px" />
+              </div>
+              <div>
+                <h3>{job.title}</h3>
+                <p class="company">{job.company}</p>
+              </div>
+              <p class="dates">{job.dates}</p>
+            </header>
+
+            {projects.length > 0 && (
+              <ul class="projects">
+                {projects.map((p) => (
+                  <li class="project"><strong>{p.title}</strong><span>{p.text}</span></li>
+                ))}
+              </ul>
+            )}
+
+            {bullets.length > 0 && (
+              <ul class="points">
+                {bullets.map((p) => <li>{p.text}</li>)}
+              </ul>
+            )}
+
+            <ul class="tags" aria-label="Tools" data-tags={extra > 0 ? extra : undefined}>
+              {job.tools.map((tool, i) => (
+                <li class={i >= TOOLS_PREVIEW_COUNT ? "tag-extra" : undefined}>{tool}</li>
+              ))}
+            </ul>
+          </article>
+        </li>
+      );
+    })}
+  </ol>
+</section>
+
+<script>
+  // Collapse long tool lists to the first few tags plus a "+N more" button.
+  // Without JS every tag simply stays visible.
+  document.querySelectorAll<HTMLUListElement>(".tags[data-tags]").forEach((list) => {
+    const hidden = Number(list.dataset.tags);
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "tags-toggle";
+    const render = (collapsed: boolean) => {
+      list.classList.toggle("is-collapsed", collapsed);
+      button.textContent = collapsed ? `+${hidden} more` : "Show fewer";
+      button.setAttribute("aria-expanded", String(!collapsed));
+    };
+    button.addEventListener("click", () => render(!list.classList.contains("is-collapsed")));
+    list.after(button);
+    render(true);
+  });
+</script>

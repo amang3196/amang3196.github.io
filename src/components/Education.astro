@@ -1,0 +1,26 @@
+---
+import { Image } from "astro:assets";
+import { EDUCATION, EDUCATION_ART } from "../data/site";
+---
+<section class="section" id="education">
+  <div class="section-head">
+    <span class="kicker">Learning</span>
+    <h2>My Education</h2>
+  </div>
+
+  <div class="bento education">
+    <div class="tile edu-art" style={`grid-row: span ${EDUCATION.length}`}>
+      <Image src={EDUCATION_ART} alt="" widths={[280, 560]} sizes="280px" />
+    </div>
+    {EDUCATION.map((e) => (
+      <article class="tile edu">
+        <span class="edu-icon" aria-hidden="true">🎓</span>
+        <div>
+          <h3>{e.degree}</h3>
+          <p class="muted">{e.school}</p>
+          <p class="meta">{e.years}</p>
+        </div>
+      </article>
+    ))}
+  </div>
+</section>

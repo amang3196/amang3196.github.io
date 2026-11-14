@@ -1,0 +1,36 @@
+---
+import Icon from "./Icon.astro";
+import { CONTACT_EMAIL } from "../data/site";
+---
+<section class="section" id="contact">
+  <div class="section-head">
+    <span class="kicker">Contact</span>
+    <h2>Get In Touch With Me!</h2>
+  </div>
+
+  <!-- Delivered by https://formsubmit.co, so the form works on a static site. -->
+  <form class="tile form" action={`https://formsubmit.co/${CONTACT_EMAIL}`} method="POST">
+    <p class="muted">Have a question or an opportunity? Drop me a message and I'll get back to you.</p>
+    <input type="hidden" name="_captcha" value="false" />
+    <input type="hidden" name="_subject" value="New message from your website" />
+    <!-- Spam trap: hidden from people, bots fill it in and get ignored. -->
+    <div class="honeypot" aria-hidden="true">
+      <label>Leave this empty <input type="text" name="_honey" tabindex="-1" autocomplete="off" /></label>
+    </div>
+    <div class="form-row">
+      <label>
+        <span>Name</span>
+        <input type="text" name="name" placeholder="Your name" autocomplete="name" required />
+      </label>
+      <label>
+        <span>Email</span>
+        <input type="email" name="email" placeholder="you@example.com" autocomplete="email" inputmode="email" required />
+      </label>
+    </div>
+    <label>
+      <span>Message</span>
+      <textarea name="message" rows="6" placeholder="Your message here" required></textarea>
+    </label>
+    <button type="submit" class="btn btn-primary"><Icon name="send" /> Send message</button>
+  </form>
+</section>
